@@ -9,10 +9,14 @@ import java.util.Scanner;
 public class App {
     public static final char[] simbolos = {
         '!', '"', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', 
-        '?', '@', '[', ']', '^', '_', '{', '|', '}', '¡', '¸', '¿'
-        };
+        '?', '@', '[', ']', '^', '_', '{', '|', '}', '¡', '¸', '¿' };
 
-    public static void main(String[] args) throws Exception {
+    /**
+     * @param name
+     * @return
+     * @throws Exception
+     */
+    public static void main(String name) throws Exception {
         // Declaracion de variables
         char symbol;
         int num;
@@ -25,7 +29,6 @@ public class App {
         num = length.nextInt((18-12) + 1) + 12;
         // Creacion de la pass
         char[] arrayPass = new char[num];
-        
         
         for (int i = 0; i < num; i++){
             type = length.nextInt(3);
@@ -44,15 +47,10 @@ public class App {
             }
         }
 
-        // Get the name of the file with the password
-        Scanner in = new Scanner(System.in);
-        System.out.println("Enter the name of the file: ");
-        String fileName = in.nextLine();
-        String filePath = (fileName + ".txt");
-
         // Convert char array to String
         String pass = new String(arrayPass);
-        saveInFile(filePath, pass);
+        saveInFile(name, pass);
+        returnPass(pass);
 
     }
 
@@ -92,5 +90,9 @@ public class App {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static String returnPass(String pass){
+        return pass;
     }
 }
