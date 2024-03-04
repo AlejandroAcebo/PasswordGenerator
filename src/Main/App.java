@@ -11,12 +11,23 @@ public class App {
         '!', '"', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', 
         '?', '@', '[', ']', '^', '_', '{', '|', '}', '¡', '¸', '¿' };
 
-    /**
+    
+    public static void main(String nombre) {
+        try {
+            String result = genPass(nombre); // Llamada al método main que retorna un String
+            System.out.println(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+        /**
      * @param name
      * @return
      * @throws Exception
      */
-    public static void main(String name) throws Exception {
+    
+     
+    public static String genPass(String name) throws Exception {
         // Declaracion de variables
         char symbol;
         int num;
@@ -50,8 +61,7 @@ public class App {
         // Convert char array to String
         String pass = new String(arrayPass);
         saveInFile(name, pass);
-        returnPass(pass);
-
+        return(pass);
     }
 
     // Gen random number
@@ -90,9 +100,5 @@ public class App {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private static String returnPass(String pass){
-        return pass;
     }
 }
