@@ -91,6 +91,17 @@ public class Interface {
 		
 		// buttom generate password
 		JButton btnNewButton = new JButton("Generate Password");
+		btnNewButton.setBounds(100, 201, 150, 33);
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButton.setBackground(color2);
+		frmPasswordGenerator.add(btnNewButton);
+		// buttom exit
+        JButton exitButton = new JButton("Exit");
+		exitButton.setBounds(300, 201, 150, 33);
+		exitButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		exitButton.setBackground(color2);
+		frmPasswordGenerator.add(exitButton);
+
 		btnNewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -119,7 +130,19 @@ public class Interface {
 				// Show the new frame and hide the home frame
 				showPasswordAndCopy.setVisible(true);
 				frmPasswordGenerator.setVisible(false);
+				// Buttom of copy
 				JButton btnCopy = new JButton("Copy");
+				btnCopy.setBounds(100, 201, 150, 33);
+				btnCopy.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnCopy.setBackground(color2);
+				showPasswordAndCopy.add(btnCopy);
+				// Buttom of back
+				JButton btnBack = new JButton("Back");
+				btnBack.setBounds(300, 201, 150, 33);
+				btnBack.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnBack.setBackground(color2);
+				showPasswordAndCopy.add(btnBack);
+				// If it was clicked the password will be copy in your clipboard
 				btnCopy.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -129,20 +152,19 @@ public class Interface {
 						JOptionPane.showMessageDialog(null, "Text copied to clipboard!");
 					}	
 				});
-
-
+				// if it was clicked the frame of the password will hide and the main frame will show again
+				btnBack.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						showPasswordAndCopy.setVisible(false);
+						frmPasswordGenerator.setVisible(true);
+					}
+				});
 				showPasswordAndCopy.getContentPane().add(panel);
             }
 		});
-		btnNewButton.setBounds(100, 201, 150, 33);
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnNewButton.setBackground(color2);
-		frmPasswordGenerator.getContentPane().add(btnNewButton);
-		// buttom exit
-        JButton exitButton = new JButton("Exit");
-		exitButton.setBounds(300, 201, 150, 33);
-		exitButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-		exitButton.setBackground(color2);
+		
+		
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -150,7 +172,6 @@ public class Interface {
             }
         });
         
-        frmPasswordGenerator.add(exitButton);
         frmPasswordGenerator.setVisible(true);
 
 	}
