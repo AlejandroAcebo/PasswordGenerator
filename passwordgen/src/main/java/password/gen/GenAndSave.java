@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Scanner;
 
-public class App {
+public class GenAndSave {
     public static final char[] simbolos = {
         '!', '"', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', 
         '?', '@', '[', ']', '^', '_', '{', '|', '}', '¡', '¸', '¿' };
