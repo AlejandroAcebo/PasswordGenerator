@@ -1,49 +1,33 @@
-package Interface;
+package password.gen;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import java.awt.BorderLayout;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.awt.Component;
-import javax.swing.Box;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+
 
 import javax.swing.JTextField;
-
-import Main.GenAndSave;
-import Main.GenNoSave;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 public class Interface {
 
 	private JFrame frmPasswordGenerator;
+	@SuppressWarnings("unused")
 	private final JTextField textField;
-	private String nameFile;
 	private String password;
 
-	// Define similar colors
-	private Color color1 = new Color(255, 148, 120); // Color naranja claro
-	private Color color2 = new Color(255, 193, 120); // Color naranja
-	private Color color3 = new Color(255, 235, 120); // Color amarillo
-	private Color color4 = new Color(203, 255, 120); // Color verde lima
+	private Color buttonBackground = new Color(144, 238, 144);
+	private Color buttonText = new Color(70, 70, 70);
 
 	/**
 	 * Launch the application.
@@ -73,7 +57,8 @@ public class Interface {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		// Variables
+
+		// Create the home frame
 		frmPasswordGenerator = new JFrame();
 		frmPasswordGenerator.setTitle("Password Generator");
 		frmPasswordGenerator.setBounds(200, 200, 600, 400);
@@ -81,33 +66,49 @@ public class Interface {
 		frmPasswordGenerator.getContentPane().setLayout(null);
 		frmPasswordGenerator.setLocationRelativeTo(null);
 		
-		final JTextField textField = new JTextField();
-		textField.setBounds(200, 152, 200, 26);
-		frmPasswordGenerator.getContentPane().add(textField);
-		textField.setColumns(10);    
-		
-		JLabel lblNewLabel = new JLabel("Introduzca el nombre del archivo en donde se guarda su contraseña");
-		lblNewLabel.setBounds(100, 100, 400, 26);
-		frmPasswordGenerator.getContentPane().add(lblNewLabel);
+		// Textfield to put the name of the file where you want to save
+		final JTextField nameFile = new JTextField();
+		nameFile.setBounds(200, 152, 200, 26);
+		nameFile.setColumns(10);    
+		frmPasswordGenerator.getContentPane().add(nameFile);
 
-		// buttom generate password
-		JButton btnGenPass = new JButton("Generate Password");
-		btnGenPass.setBounds(220, 200, 150, 33);
+		// Label of the title
+		JLabel lblTitle = new JLabel("GENERATOR OF PASSWORDS");
+		lblTitle.setBounds(200, 50, 400, 26);
+		frmPasswordGenerator.getContentPane().add(lblTitle);
+		
+		// Label for instructions
+		JLabel lblEnterPass = new JLabel("Enter the name of the file where you want to save your password");
+		lblEnterPass.setBounds(100, 100, 400, 26);
+		frmPasswordGenerator.getContentPane().add(lblEnterPass);
+
+		// Button generate password and no save
+		JButton btnGenPass = new JButton("Generate");
+		btnGenPass.setBounds(220, 200, 150, 40);
 		btnGenPass.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnGenPass.setBackground(color2);
-		frmPasswordGenerator.add(btnGenPass);
-		// buttom generate password and save in a file
-		JButton btnGenPassAndSave = new JButton("Generate Password and Save");
-		btnGenPassAndSave.setBounds(60, 200, 150, 33);
+		btnGenPass.setBackground(buttonBackground);
+		btnGenPass.setForeground(buttonText);
+		
+		// Button generate password and save in a file
+		JButton btnGenPassAndSave = new JButton("Generate & Save");
+		btnGenPassAndSave.setBounds(60, 200, 150, 40);
 		btnGenPassAndSave.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnGenPassAndSave.setBackground(color2);
-		frmPasswordGenerator.add(btnGenPassAndSave);
-		// buttom exit
+		btnGenPassAndSave.setBackground(buttonBackground);
+		btnGenPassAndSave.setForeground(buttonText);
+		
+		// Button exit
         JButton exitButton = new JButton("Exit");
-		exitButton.setBounds(380, 200, 150, 33);
+		exitButton.setBounds(380, 200, 150, 40);
 		exitButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-		exitButton.setBackground(color2);
+		exitButton.setBackground(buttonBackground);
+		exitButton.setForeground(buttonText);
+
+		// Add the buttons to the frame
+		frmPasswordGenerator.add(btnGenPass);
+		frmPasswordGenerator.add(btnGenPassAndSave);
 		frmPasswordGenerator.add(exitButton);
+
+		// Event listener if the button generate and no save is clicked
 		btnGenPass.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				try {
@@ -115,43 +116,52 @@ public class Interface {
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
+				// Create the new frame where the password will be show
 				JFrame showPasswordAndCopy = new JFrame("Password generated");
-
-				JLabel messageField = new JLabel(password);
-				JPanel panel = new JPanel();
-				panel.add(messageField);
-				
-				// Second Jframe
 				showPasswordAndCopy.setTitle("Password");
 				showPasswordAndCopy.setBounds(200, 200, 600, 400);
 				showPasswordAndCopy.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				showPasswordAndCopy.setLocationRelativeTo(null);
-				// Show the new frame and hide the home frame
-				showPasswordAndCopy.setVisible(true);
-				frmPasswordGenerator.setVisible(false);
-				// Buttom of copy
+
+				// Use setbound for no using the layout of the frame
+				showPasswordAndCopy.setLayout(null);
+
+				// Label and panel of the password
+				JLabel messagePassword = new JLabel("The password is :       " + password);
+				JPanel pnlPassword = new JPanel();
+				pnlPassword.setBounds(80, 100, 400, 26);
+				pnlPassword.add(messagePassword);
+				
+				// Button of copy
 				JButton btnCopy = new JButton("Copy");
 				btnCopy.setBounds(100, 201, 150, 33);
 				btnCopy.setFont(new Font("Tahoma", Font.BOLD, 11));
-				btnCopy.setBackground(color2);
-				// Buttom of back
+				btnCopy.setBackground(buttonBackground);
+				btnCopy.setForeground(buttonText);
+				
+				// Button of back
 				JButton btnBack = new JButton("Back");
 				btnBack.setBounds(300, 201, 150, 33);
 				btnBack.setFont(new Font("Tahoma", Font.BOLD, 11));
-				btnBack.setBackground(color2);
+				btnBack.setBackground(buttonBackground);
+				btnBack.setForeground(buttonText);
+
 				// Add to the frame
 				showPasswordAndCopy.add(btnCopy);
 				showPasswordAndCopy.add(btnBack);
-				// If it was clicked the password will be copy in your clipboard
+
+				// Show the new frame and hide the home frame
+				showPasswordAndCopy.setVisible(true);
+				frmPasswordGenerator.setVisible(false);
+
+				// If it was clicked the password will be copy in the clipboard
 				btnCopy.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						StringSelection selection = new StringSelection(password);
-						Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-						clipboard.setContents(selection, null);
-						JOptionPane.showMessageDialog(null, "Text copied to clipboard!");
+						copyPassword(password);
 					}	
 				});
+
 				// if it was clicked the frame of the password will hide and the main frame will show again
 				btnBack.addActionListener(new ActionListener() {
 					@Override
@@ -160,59 +170,73 @@ public class Interface {
 						frmPasswordGenerator.setVisible(true);
 					}
 				});
-				showPasswordAndCopy.getContentPane().add(panel);
+				showPasswordAndCopy.getContentPane().add(pnlPassword);
 				}
 		});
+
+		// Event listener if the button generate and save is clicked
 		btnGenPassAndSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-				nameFile = textField.getText();
+
+				// Check if the file name is empty because a string of one or more character is required
+				String nameFile = textField.getText();
 				if (nameFile.isEmpty()){
-					JOptionPane.showMessageDialog(null, "You have to introduce a name for the file of the password");
+					JOptionPane.showMessageDialog(null, "You have to introduce a name for the file of the password", "Error", JOptionPane.WARNING_MESSAGE);
 				} else{
 					try {
 						password = GenAndSave.genPass(nameFile);
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
-					JFrame showPasswordAndCopy = new JFrame("Password generated");
 
-					JLabel messageField = new JLabel(password);
-					JPanel panel = new JPanel();
-					panel.add(messageField);
-					
-					// Second Jframe
+					// Create the new frame where the password will be show
+					JFrame showPasswordAndCopy = new JFrame("Password generated");
 					showPasswordAndCopy.setTitle("Password");
 					showPasswordAndCopy.setBounds(200, 200, 600, 400);
 					showPasswordAndCopy.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					showPasswordAndCopy.setLocationRelativeTo(null);
-					// Show the new frame and hide the home frame
-					showPasswordAndCopy.setVisible(true);
-					frmPasswordGenerator.setVisible(false);
-					// Buttom of copy
+
+					// Use setbound for no using the layout of the frame
+					showPasswordAndCopy.setLayout(null);
+
+					// Label and panel of the password
+					JLabel messagePassword = new JLabel("The password is :       " + password);
+					JPanel pnlPassword = new JPanel();
+					pnlPassword.setBounds(80, 100, 400, 26);
+					pnlPassword.add(messagePassword);
+					
+					// Button of copy
 					JButton btnCopy = new JButton("Copy");
 					btnCopy.setBounds(100, 201, 150, 33);
 					btnCopy.setFont(new Font("Tahoma", Font.BOLD, 11));
-					btnCopy.setBackground(color2);
-					// Buttom of back
+					btnCopy.setBackground(buttonBackground);
+					btnCopy.setForeground(buttonText);
+
+					// Button of back
 					JButton btnBack = new JButton("Back");
 					btnBack.setBounds(300, 201, 150, 33);
 					btnBack.setFont(new Font("Tahoma", Font.BOLD, 11));
-					btnBack.setBackground(color2);
+					btnBack.setBackground(buttonBackground);
+					btnBack.setForeground(buttonText);
+
 					// Add to the frame
 					showPasswordAndCopy.add(btnCopy);
 					showPasswordAndCopy.add(btnBack);
+
+					// Show the new frame and hide the home frame
+					showPasswordAndCopy.setVisible(true);
+					frmPasswordGenerator.setVisible(false);
+
 					// If it was clicked the password will be copy in your clipboard
 					btnCopy.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							StringSelection selection = new StringSelection(password);
-							Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-							clipboard.setContents(selection, null);
-							JOptionPane.showMessageDialog(null, "Text copied to clipboard!");
+							copyPassword(password);
 						}	
 					});
-					// if it was clicked the frame of the password will hide and the main frame will show again
+
+					// If it was clicked the frame of the password will hide and the main frame will show again
 					btnBack.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -220,11 +244,12 @@ public class Interface {
 							frmPasswordGenerator.setVisible(true);
 						}
 					});
-					showPasswordAndCopy.getContentPane().add(panel);
+					showPasswordAndCopy.getContentPane().add(pnlPassword);
 				}
 			}
 		});
 		
+		// Event listener if the button exit is clicked it will close the frame
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -232,5 +257,16 @@ public class Interface {
             }
         });
         frmPasswordGenerator.setVisible(true);
+	}
+
+	/**
+	 * Method that expects a string that will be copy in the clipboard
+	 * @param password String to copy
+	 */
+	public void copyPassword (String password){
+		StringSelection selection = new StringSelection(password);
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clipboard.setContents(selection, null);
+		JOptionPane.showMessageDialog(null, "Text copied to clipboard!", "", JOptionPane.WARNING_MESSAGE);
 	}
 }

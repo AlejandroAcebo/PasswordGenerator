@@ -1,10 +1,6 @@
-package Main;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+package password.gen;
+
 import java.security.SecureRandom;
-import java.util.Scanner;
 
 public class GenNoSave {
     public static final char[] simbolos = {
