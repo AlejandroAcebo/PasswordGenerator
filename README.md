@@ -16,6 +16,7 @@ Maven will be for compile, install and generate executable .jar program.
 5. Now you will have in the folder "Target" 2 .jar file
 
 *#Run the program*
+
 Two options to run the program:
 1. Go to the folder "Target" and double click the "passwordgen-1.0-jar-with-dependencies.jar"
 2. Go to the directory "Target" in cmd and put the following command: java -jar passwordgen-1.0-jar-with-dependencies.jar
