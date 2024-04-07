@@ -10,7 +10,7 @@ public class GenNoSave {
     
     public static void main(String[] a) {
         try {
-            String result = genPass(); // Llamada al método main que retorna un String
+            String result = genPass();
             System.out.println(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -24,17 +24,16 @@ public class GenNoSave {
     
      
     public static String genPass() throws Exception {
-        // Declaracion de variables
         char symbol;
         int num;
         int type;
 
         SecureRandom length = new SecureRandom();
-        // Genera cada vez una semilla distinta
+        // Generate a random seed 
         length.setSeed(length.generateSeed(20));
-        // Creacion de la longitud de la contraseña
+        // Create the length of the password
         num = length.nextInt((18-12) + 1) + 12;
-        // Creacion de la pass
+        // Creation of the password
         char[] arrayPass = new char[num];
         
         for (int i = 0; i < num; i++){

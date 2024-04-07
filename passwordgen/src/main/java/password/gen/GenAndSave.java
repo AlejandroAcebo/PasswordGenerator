@@ -13,7 +13,7 @@ public class GenAndSave {
     
     public static void main(String nombre) {
         try {
-            String result = genPass(nombre); // Llamada al método main que retorna un String
+            String result = genPass(nombre);
             System.out.println(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -27,17 +27,16 @@ public class GenAndSave {
     
      
     public static String genPass(String name) throws Exception {
-        // Declaracion de variables
         char symbol;
         int num;
         int type;
 
         SecureRandom length = new SecureRandom();
-        // Genera cada vez una semilla distinta
+        // Generate a random seed 
         length.setSeed(length.generateSeed(20));
-        // Creacion de la longitud de la contraseña
+        // Create the length of the password
         num = length.nextInt((18-12) + 1) + 12;
-        // Creacion de la pass
+        // Creation of the password
         char[] arrayPass = new char[num];
         
         for (int i = 0; i < num; i++){
@@ -59,6 +58,7 @@ public class GenAndSave {
 
         // Convert char array to String
         String pass = new String(arrayPass);
+        // Save the password in the file with the name that the user introduces
         saveInFile(name, pass);
         return(pass);
     }
@@ -93,6 +93,9 @@ public class GenAndSave {
         return (char)letterRandom;
     }
     
+    /*
+     * Save the password in a txt file with the name that the user introduces
+     */
     private static void saveInFile(String filePath, String pass) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filePath)))) {
             writer.write(pass);
