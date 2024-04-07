@@ -21,3 +21,8 @@ Two options to run the program:
 1. Go to the folder "Target" and double click the "passwordgen-1.0-jar-with-dependencies.jar"
 2. Go to the directory "Target" in cmd and put the following command: java -jar passwordgen-1.0-jar-with-dependencies.jar
 
+*#How it works*
+1. Bottom "Generate" can generate a random password without saving it.
+2. Bottom "Generate & Save" can generate a randow password which save it in a text file which name is what you have introduce in the field above. This file will be create and modify in the targer folder
+3. Buttom "Copy" you can use it Generate and Generate & Save it will copy the password created in your clipboard
+
