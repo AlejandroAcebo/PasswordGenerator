@@ -180,12 +180,12 @@ public class Interface {
             public void actionPerformed(ActionEvent e) {
 
 				// Check if the file name is empty because a string of one or more character is required
-				String nameFile = textField.getText();
-				if (nameFile.isEmpty()){
+				String name = nameFile.getText();
+				if (name.isEmpty()){
 					JOptionPane.showMessageDialog(null, "You have to introduce a name for the file of the password", "Error", JOptionPane.WARNING_MESSAGE);
 				} else{
 					try {
-						password = GenAndSave.genPass(nameFile);
+						password = GenAndSave.genPass(name);
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
